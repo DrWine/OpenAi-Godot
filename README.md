@@ -1,5 +1,5 @@
 # OpenAI Godot Plugin
-
+# NOT WORKING YET!
 This plugin integrates OpenAI's GPT and DALL-E APIs into Godot, allowing easy access to these powerful AI tools within your Godot projects.
 
 ## Features
