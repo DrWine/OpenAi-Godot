@@ -26,7 +26,7 @@ func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url
 		messages.append(i.get_as_dict())
 	
 	var body = {
-	"model": "gpt-4",
+	"model": model,
 	"messages": messages
 	}
 	var json = JSON.new()
