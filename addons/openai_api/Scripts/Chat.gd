@@ -1,9 +1,9 @@
 extends Node
+class_name ChatGpt
 var http_request: HTTPRequest
 ## Automaticly gets the api from the global script `OpenAi`
 
 @onready var parent = get_parent()
-@onready var openai_api_key = parent.get_api()
 
 func _ready():
 	http_request = HTTPRequest.new()
@@ -12,6 +12,9 @@ func _ready():
 	
 ##Sends an api request to chat gpt, will return a signal with a `Message` class.
 func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url:String="https://api.openai.com/v1/chat/completions"):
+	var openai_api_key = parent.get_api()
+	if !openai_api_key:
+		return
 	##req
 	var headers = [
 		"Content-Type: application/json",
@@ -46,6 +49,8 @@ func _http_request_completed(result, response_code, headers, body):
 	
 	var response = json.get_data()
 	var message = Message.new()
+	
+	##TODO: Add error handeling in case of bad response
 	message.set_role(response["choices"][0]["message"]["role"])
 	message.set_content(response["choices"][0]["message"]["content"])
 	parent.emit_signal("gpt_response_completed",message,response)

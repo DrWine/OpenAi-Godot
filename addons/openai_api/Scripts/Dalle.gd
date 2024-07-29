@@ -1,10 +1,9 @@
 extends Node
-
+class_name Dalle
 var http_request: HTTPRequest
 var http_request_image_download: HTTPRequest
 
 @onready var parent = get_parent()
-@onready var openai_api_key = parent.get_api()
 
 
 func _ready():
@@ -19,6 +18,9 @@ func _ready():
 	http_request_image_download.request_completed.connect(self._image_downloaded)
 	
 func prompt_dalle(prompt:String, resolution:String = "1024x1024", model: String = "dall-e-2", url:String="https://api.openai.com/v1/images/generations"):
+	var openai_api_key = parent.get_api()
+	if !openai_api_key:
+		return
 	var headers = [
 		"Content-Type: application/json",
 		"Authorization: Bearer " + openai_api_key

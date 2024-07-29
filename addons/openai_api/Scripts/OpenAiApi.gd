@@ -4,30 +4,32 @@ extends Node
 var chatgpt_inst = preload("res://addons/openai_api/Scenes/ChatGpt.tscn")
 var dalle_inst = preload("res://addons/openai_api/Scenes/Dalle.tscn")
 
-var dalle :Node = null
-var chatgpt :Node = null
+@export var dalle :Dalle = null
+@export var chatgpt :ChatGpt = null
 
-var openai_api_key = ""
+@export var openai_api_key = ""
 
 signal gpt_response_completed(message:Message, response:Dictionary)
 signal dalle_response_completed(texture:ImageTexture)
 
 ##Makes an api call to open ai chatgpt, and returns a class `Message` that contains `{"role":role,"content":content}`
 func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url:String="https://api.openai.com/v1/chat/completions"):
-	if !chatgpt:
-		push_error("ChatGpt hasnt instantiated yet!")
-		return
+	
+	while !chatgpt:
+		await get_tree().create_timer(0.2).timeout
+		
 	chatgpt.prompt_gpt(ListOfMessages,model,url)
 
 ##Makes an api call to open ai dalle, and returns the generated Texture
 func prompt_dalle(prompt:String, resolution:String = "1024x1024", model: String = "dall-e-2", url:String="https://api.openai.com/v1/images/generations"):
-	if !dalle:
-		push_error("Dalle hasnt instantiated yet!")
-		return
+	
+	while !dalle:
+		await get_tree().create_timer(0.2).timeout
+		
 	dalle.prompt_dalle(prompt,resolution,model,url)
 
 func get_api() -> String:
-	if openai_api_key.is_empty() or openai_api_key == "":
+	if openai_api_key.is_empty():
 		push_error("Insert your OpenAi api key!")
 	return openai_api_key
 	
