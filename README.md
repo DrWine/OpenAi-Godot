@@ -81,15 +81,3 @@ Handles ChatGPT API requests.
 ### Dalle
 
 Handles DALL-E API requests.
-
-## License
-
-[Include your chosen license here]
-
-## Contributing
-
-[Include contribution guidelines here]
-
-## Support
-
-[Include support information here]
