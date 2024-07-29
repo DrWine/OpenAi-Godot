@@ -17,11 +17,6 @@ This plugin integrates OpenAI's GPT and DALL-E APIs into Godot, allowing easy ac
 
 ## Usage
 
-### Atention
-The nodes take some time to instantiate so it wont work
-if you prompt chatgpt or dalle in the _ready function, unless you instantiate them manually from
-the tree editor!
-
 ### Setting up the API Key
 
 Before using the plugin, make sure to set your OpenAI API key:
@@ -67,10 +62,6 @@ func _ready():
 	
 	##setting the api key
 	open_ai.set_api("<API HERE>")
-	
-	##waiting for nodes to get instantiated
-	var timer = get_tree().create_timer(0.2)
-	await timer.timeout
 	
 	##Prompt chatgpt
 	open_ai.prompt_gpt(messages)
