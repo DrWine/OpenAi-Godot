@@ -25,6 +25,10 @@ Before using the plugin, make sure to set your OpenAI API key:
 var openai = get_node("OpenAI")
 openai.set_api("your-api-key-here")
 ```
+##Atention
+The nodes take some time to instantiate so it wont work
+if you prompt chatgpt or dalle in the _ready function, unless you instantiate them manually from
+the tree editor it wont work.
 
 ### Using ChatGPT
 
@@ -40,7 +44,7 @@ Listen for the response:
 
 ```gdscript
 func _ready():
-	openai.gpt_response_completed.connect(self._on_gpt_response)
+	open_ai.connect("gpt_response_completed", gpt_response_completed)
 
 func _on_gpt_response(message: Message, response: Dictionary):
 	print(message.get_content())
@@ -87,7 +91,7 @@ Listen for the response:
 
 ```gdscript
 func _ready():
-	openai.dalle_response_completed.connect(self._on_dalle_response)
+	open_ai.connect("dalle_response_completed", dalle_response_completed)
 
 func _on_dalle_response(texture: ImageTexture):
 	$Sprite2D.texture = texture
