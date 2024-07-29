@@ -16,6 +16,8 @@ This plugin integrates OpenAI's GPT and DALL-E APIs into Godot, allowing easy ac
 3. Enable the plugin in your project settings.
 
 ## Usage
+### Add the OpenAi node
+![image](https://github.com/user-attachments/assets/a881abdb-b0b7-4034-8859-b7e5fa05cfdc)
 
 ### Setting up the API Key
 
