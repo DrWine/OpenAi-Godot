@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4g5ab4wv4ho8"]
+
+[ext_resource type="Script" path="res://addons/openai_api/Scripts/Dalle.gd" id="1_e8jok"]
+
+[node name="Dalle" type="Node"]
+script = ExtResource("1_e8jok")

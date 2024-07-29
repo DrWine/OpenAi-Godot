@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://85bqsipwwqef"]
+
+[ext_resource type="Script" path="res://addons/openai_api/Scripts/Message.gd" id="1_2kfri"]
+
+[node name="Message" type="Node"]
+script = ExtResource("1_2kfri")
