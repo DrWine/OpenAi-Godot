@@ -8,12 +8,13 @@ var dalle_inst = preload("res://addons/openai_api/Scenes/Dalle.tscn")
 @export var chatgpt :ChatGpt = null
 
 @export var openai_api_key = ""
+@export var baseurl = "https://api.openai.com/v1/"
 
 signal gpt_response_completed(message:Message, response:Dictionary)
 signal dalle_response_completed(texture:ImageTexture)
 
 ##Makes an api call to open ai chatgpt, and returns a class `Message` that contains `{"role":role,"content":content}`
-func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url:String="https://api.openai.com/v1/chat/completions"):
+func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url:String=(get_baseurl() + "chat/completions")):
 	
 	while !chatgpt:
 		await get_tree().create_timer(0.2).timeout
@@ -21,7 +22,7 @@ func prompt_gpt(ListOfMessages:Array[Message], model: String = "gpt-o-mini", url
 	chatgpt.prompt_gpt(ListOfMessages,model,url)
 
 ##Makes an api call to open ai dalle, and returns the generated Texture
-func prompt_dalle(prompt:String, resolution:String = "1024x1024", model: String = "dall-e-2", url:String="https://api.openai.com/v1/images/generations"):
+func prompt_dalle(prompt:String, resolution:String = "1024x1024", model: String = "dall-e-2", url:String=(get_baseurl() + "images/generations")):
 	
 	while !dalle:
 		await get_tree().create_timer(0.2).timeout
@@ -35,6 +36,14 @@ func get_api() -> String:
 	
 func set_api(api:String) -> void:
 	openai_api_key = api
+
+func get_baseurl() -> String:
+	if baseurl.is_empty():
+		push_error("Insert your BaseURL!")
+	return baseurl
+	
+func set_baseurl(api:String = "https://api.openai.com/v1/"):
+	baseurl = api
 
 func _ready():
 	if chatgpt and dalle:
